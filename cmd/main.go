@@ -27,6 +27,20 @@ func main() {
 		panic(err)
 	}
 	redis.SelectedConcurrencyImplementation = redis.ConcurrencyImplementation(selectedImpl)
+	switch redis.SelectedConcurrencyImplementation {
+	case redis.NoConcurrency:
+		fmt.Println(">> No Concurrency selected...")
+	case redis.AtomicOperator:
+		fmt.Println(">> Atomic Operator selected...")
+	case redis.Transaction:
+		fmt.Println(">> Transaction selected...")
+	case redis.LUA:
+		fmt.Println(">> LUA Script selected...")
+	case redis.Lock:
+		fmt.Println(">> Redis Locks selected...")
+	default:
+		panic("invalid implementation method selectd")
+	}
 
 	// --- (1) ----
 	// Get the redis config and init the repository
