@@ -177,6 +177,7 @@ func (r *Repository) buySharesWithRedisLock(ctx context.Context, userId, company
 	// can obtain the same lock (the same mutex name) until we unlock it.
 	if err := r.mutex.Lock(); err != nil {
 		fmt.Printf("error during lock: %v \n", err)
+		return err
 	}
 
 	defer func() {
